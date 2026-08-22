@@ -6,6 +6,16 @@
       "file": "config/firebase.ts",
       "description": "1. configuracion incial del proyecto a firebase como backend externo\r\n",
       "line": 1
+    },
+    {
+      "file": "app/error.tsx",
+      "description": "2. pagina de errores inexperados de la app que rompen todo la estructraura visual esta es la ultima opcion para que vea el usuario.\r\n",
+      "line": 1
+    },
+    {
+      "file": "app/not-found.tsx",
+      "description": "3. rutas no especificades en general de la app\r\n",
+      "line": 1
     }
   ]
 }
