@@ -1,0 +1,11 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "RoadMap tour",
+  "steps": [
+    {
+      "file": "config/firebase.ts",
+      "description": "1. configuracion incial del proyecto a firebase como backend externo\r\n",
+      "line": 1
+    }
+  ]
+}
