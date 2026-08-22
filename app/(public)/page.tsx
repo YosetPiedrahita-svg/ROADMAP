@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Link from "next/link";
 
 const HomePage = () => {
   return (
@@ -35,7 +36,7 @@ const HomePage = () => {
 
         <CardFooter className="flex flex-col items-center justify-center gap-3 pt-4">
           <Button variant="default" className="w-full max-w-xs">
-            Iniciar sesión
+            <Link href={"/login"}>Iniciar seccion</Link>
           </Button>
 
           <div className="text-sm text-slate-600 flex items-center gap-1 flex-wrap justify-center">
@@ -44,7 +45,7 @@ const HomePage = () => {
               variant="link"
               className="p-0 h-auto font-semibold text-green-800"
             >
-              Regístrese
+              <Link href={"/register"}>Registrese aqui</Link>
             </Button>
           </div>
         </CardFooter>
