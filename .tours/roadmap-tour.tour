@@ -8,6 +8,11 @@
       "line": 1
     },
     {
+      "file": "app/(public)/page.tsx",
+      "description": "4 Paginas Publicas sin estar autenticado\r\n",
+      "line": 1
+    },
+    {
       "file": "app/error.tsx",
       "description": "2. pagina de errores inexperados de la app que rompen todo la estructraura visual esta es la ultima opcion para que vea el usuario.\r\n",
       "line": 1
