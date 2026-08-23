@@ -1,14 +1,19 @@
 import { RegisterZodSchemaType } from "@/lib/schemas/zodSchemas";
-import { createUserWithEmailAndPassword, UserCredential } from "firebase/auth";
-import { useAuth } from "reactfire";
+import {
+  createUserWithEmailAndPassword,
+  User,
+  UserCredential,
+} from "firebase/auth";
+import { useAuth, useUser } from "reactfire";
 
 const useAuthentication = () => {
   interface RegisterValidation {
-    user?: UserCredential;
-    error: boolean;
-    code: number;
+    user?: User;
+    valido: boolean;
+    mensaje: string;
   }
   const auth = useAuth();
+  const { data: user } = useUser();
 
   //* permitir la autorizacion x correo
   const register = async ({
@@ -23,19 +28,22 @@ const useAuthentication = () => {
       );
 
       //* Si llega aquí, fue exitoso
-      console.log(registerUser.user);
+      console.log(
+        "Registro exitoso, usuario authenticado: ",
+        registerUser.user,
+      );
       return {
-        user: registerUser,
-        error: false,
-        code: 201,
+        user: registerUser.user,
+        valido: true,
+        mensaje: "Usuario registrado en el sistema correctamente",
       };
 
       //* si algo fallo en la creacion
     } catch (e) {
-      console.error(e, "error");
+      console.error("error : ", e);
       return {
-        error: true,
-        code: 400,
+        valido: false,
+        mensaje: "error en el registro del usuario",
       };
     }
   };

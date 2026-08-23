@@ -8,16 +8,6 @@
       "line": 1
     },
     {
-      "file": "app/(auth)/register/page.tsx",
-      "description": "5 Registro de usuarios x correo electronico u otros medios",
-      "line": 1
-    },
-    {
-      "file": "app/(public)/page.tsx",
-      "description": "4 Paginas Publicas sin estar autenticado\r\n",
-      "line": 1
-    },
-    {
       "file": "app/error.tsx",
       "description": "2. pagina de errores inexperados de la app que rompen todo la estructraura visual esta es la ultima opcion para que vea el usuario.\r\n",
       "line": 1
@@ -26,6 +16,21 @@
       "file": "app/not-found.tsx",
       "description": "3. rutas no especificades en general de la app\r\n",
       "line": 1
+    },
+    {
+      "file": "app/(public)/page.tsx",
+      "description": "4 Paginas Publicas sin estar autenticado\r\n",
+      "line": 1
+    },
+    {
+      "file": "app/(auth)/register/page.tsx",
+      "description": "5 Registro de usuarios x correo electronico u otros medios",
+      "line": 1
+    },
+    {
+      "file": "components/register/form-register.tsx",
+      "description": "formulario de registro ",
+      "line": 2
     }
   ]
 }

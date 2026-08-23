@@ -9,8 +9,9 @@ import { CardContent, CardFooter } from "../ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 import useAuthentication from "@/hooks/useAuthentication";
+import RegisterLoginButton from "../register-loginButton";
 const FormRegister = () => {
   const [isLoading, setTransition] = useTransition();
   const { register } = useAuthentication();
@@ -30,12 +31,7 @@ const FormRegister = () => {
     //* si se se oprimio el boton y se esta cargando guardar el estado
     setTransition(async () => {
       const result = await register(data);
-
-      if (result.error) {
-        console.log("error en la creacion del usuario");
-      } else {
-        console.log(result.user?.user);
-      }
+      console.log(result.mensaje);
     });
   };
 
@@ -85,21 +81,12 @@ const FormRegister = () => {
         </FieldGroup>
       </CardContent>
 
-      <CardFooter
-        className="flex flex-row
-        justify-center
-       gap-4"
-      >
-        <Button type="submit" variant="outline" disabled={isLoading}>
-          Login
-        </Button>
-        <Button type="reset" disabled={isLoading} onClick={() => form.reset()}>
-          reset form
-        </Button>
+      <CardFooter className=" justify-center">
+        <RegisterLoginButton />
       </CardFooter>
     </form>
   );
 };
 export default FormRegister;
 
-//todo areglar comentarios y insertar toast
+//todo areglar comentarios  interfaz ,y insertar toast
