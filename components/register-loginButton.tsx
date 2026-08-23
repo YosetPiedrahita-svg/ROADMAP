@@ -1,3 +1,4 @@
+"use client";
 import { Mail, Eraser } from "lucide-react";
 import { Button } from "./ui/button";
 import { UseFormReset } from "react-hook-form";
@@ -7,9 +8,15 @@ import { RegisterZodSchemaType } from "@/lib/schemas/zodSchemas";
 interface Props {
   isLoading: boolean;
   formReset: UseFormReset<RegisterZodSchemaType>;
+  handleGoogleSubmit: () => void;
 }
 
-const RegisterLoginButton = ({ isLoading, formReset }: Props) => {
+//todo botones individuales de registro falta modo login
+const RegisterLoginButton = ({
+  isLoading,
+  formReset,
+  handleGoogleSubmit,
+}: Props) => {
   return (
     <div className="flex flex-col items-center mt-8 gap-6 w-full max-w-sm mx-auto p-6 ">
       {/* Título principal */}
@@ -30,6 +37,7 @@ const RegisterLoginButton = ({ isLoading, formReset }: Props) => {
         </Button>
 
         <Button
+          type={"reset"}
           variant={"destructive"}
           disabled={isLoading}
           onClick={() => formReset()}
@@ -45,7 +53,7 @@ const RegisterLoginButton = ({ isLoading, formReset }: Props) => {
         <div className="absolute inset-0 flex items-center">
           <div className="w-full border-t border-slate-200" />
         </div>
-        <span className="relative bg-white px-3 text-xs uppercase tracking-wider text-slate-400 font-medium">
+        <span className="relative bg-white px-3 text-xs uppercase tracking-wider text-emerald-900 font-medium">
           O continúa con
         </span>
       </div>
@@ -53,8 +61,10 @@ const RegisterLoginButton = ({ isLoading, formReset }: Props) => {
       {/* Botón de Google */}
       <Button
         variant="outline"
+        type={"button"}
         className="w-full flex items-center justify-center gap-2 py-5 border-slate-200 hover:bg-slate-50 transition-all duration-200 shadow-xs"
         disabled={isLoading}
+        onClick={handleGoogleSubmit}
       >
         <svg
           viewBox="-3 0 262 262"
@@ -86,3 +96,5 @@ const RegisterLoginButton = ({ isLoading, formReset }: Props) => {
 };
 
 export default RegisterLoginButton;
+
+//todo specificar cuando sea register y cuando login

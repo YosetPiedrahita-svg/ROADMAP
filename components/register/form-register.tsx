@@ -8,16 +8,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CardContent, CardFooter } from "../ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 import { useTransition } from "react";
 import useAuthentication from "@/hooks/useAuthentication";
 import RegisterLoginButton from "../register-loginButton";
 import { toast } from "sonner";
+
 const FormRegister = () => {
   //* estados y funciones
 
   const [isLoading, setTransition] = useTransition();
-  const { register } = useAuthentication();
+  const { registerWithEmail, registerWithGoogle } = useAuthentication();
 
   //* 1 inicializar form con type
   const form = useForm<RegisterZodSchemaType>({
@@ -33,7 +33,7 @@ const FormRegister = () => {
   const FormSubmit = (data: RegisterZodSchemaType) => {
     //* si se se oprimio el boton y se esta cargando guardar el estado
     setTransition(async () => {
-      const result = await register(data);
+      const result = await registerWithEmail(data);
       console.log(result.mensaje);
       //* imprimir mensaje o error
       if (result.valido) {
@@ -42,6 +42,13 @@ const FormRegister = () => {
         toast.error(result.mensaje);
       }
     });
+  };
+
+  //* handle independiente del boton sin estar conectado al boton
+  const handleGoogleSubmit = async () => {
+    const result = await registerWithGoogle();
+    if (result.valido) toast.success(result.mensaje);
+    else toast.error(result.mensaje);
   };
 
   return (
@@ -105,11 +112,13 @@ const FormRegister = () => {
       </CardContent>
 
       <CardFooter className=" justify-center">
-        <RegisterLoginButton isLoading={isLoading} formReset={form.reset} />
+        <RegisterLoginButton
+          isLoading={isLoading}
+          formReset={form.reset}
+          handleGoogleSubmit={handleGoogleSubmit}
+        />
       </CardFooter>
     </form>
   );
 };
 export default FormRegister;
-
-//todo areglar comentarios  interfaz ,y insertar toast

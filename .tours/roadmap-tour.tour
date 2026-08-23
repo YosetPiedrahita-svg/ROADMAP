@@ -19,12 +19,12 @@
     },
     {
       "file": "app/(public)/page.tsx",
-      "description": "4 Paginas Publicas sin estar autenticado\r\n",
+      "description": "4 Paginas Publicas sin estar autenticado :\r\npermite redirigirse a registro\r\nPENDIENTE IR A LOGIN\r\n",
       "line": 1
     },
     {
       "file": "app/(auth)/register/page.tsx",
-      "description": "5 Registro de usuarios por correo : \r\nvalidaciones de campos \r\nactualmente permite registro por correo electronico",
+      "description": "5 Registro de usuarios : \r\nvalidaciones de campos \r\n permite registro por correo electronico\r\n  permite registro por Gmail\r\n  falta =========================\r\n  poder identificar si ya esta logeado para que no pueda venir aca ni registrarse",
       "line": 1
     }
   ]
