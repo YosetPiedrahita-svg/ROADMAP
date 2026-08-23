@@ -1,26 +1,66 @@
 import { Mail, Eraser } from "lucide-react";
 import { Button } from "./ui/button";
+import { UseFormReset } from "react-hook-form";
+import { RegisterZodSchemaType } from "@/lib/schemas/zodSchemas";
 
-const RegisterLoginButton = () => {
-  //* iconoes importados de lucide o como svg
+//* Props
+interface Props {
+  isLoading: boolean;
+  formReset: UseFormReset<RegisterZodSchemaType>;
+}
+
+const RegisterLoginButton = ({ isLoading, formReset }: Props) => {
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-row gap-4">
-        RegisterLogin
-        <Button>
-          <Mail className="mr-2 h-4 w-4" /> register or login
+    <div className="flex flex-col items-center mt-8 gap-6 w-full max-w-sm mx-auto p-6 ">
+      {/* Título principal */}
+      <h1 className="font-mono text-xl md:text-2xl font-bold tracking-tight text-emerald-900 uppercase">
+        Register or Login
+      </h1>
+
+      {/* Botones principales */}
+      <div className="flex flex-col sm:flex-row gap-3 w-full">
+        <Button
+          type="submit"
+          form="form-register"
+          disabled={isLoading}
+          className="flex-1 transition-all duration-200 shadow-sm hover:shadow"
+        >
+          <Mail className="mr-2 h-4 w-4" />
+          Continuar
         </Button>
-        <Button variant="destructive">
-          <Eraser className="mr-2 h-4 w-4" /> reset
+
+        <Button
+          variant={"destructive"}
+          disabled={isLoading}
+          onClick={() => formReset()}
+          className=" hover:text-red-600 transition-all duration-200"
+        >
+          <Eraser className="mr-2 h-4 w-4" />
+          Limpiar
         </Button>
       </div>
-      <p>identificarse con otro medio</p>
-      <Button variant="outline" className="flex items-center gap-2">
+
+      {/* Separador estético */}
+      <div className="relative w-full flex items-center justify-center my-1">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-slate-200" />
+        </div>
+        <span className="relative bg-white px-3 text-xs uppercase tracking-wider text-slate-400 font-medium">
+          O continúa con
+        </span>
+      </div>
+
+      {/* Botón de Google */}
+      <Button
+        variant="outline"
+        className="w-full flex items-center justify-center gap-2 py-5 border-slate-200 hover:bg-slate-50 transition-all duration-200 shadow-xs"
+        disabled={isLoading}
+      >
         <svg
           viewBox="-3 0 262 262"
           xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
+          width="18"
+          height="18"
         >
           <path
             d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"
@@ -39,12 +79,10 @@ const RegisterLoginButton = () => {
             fill="#EB4335"
           />
         </svg>
-        Google
+        <span className="font-medium text-slate-700">Google</span>
       </Button>
     </div>
   );
 };
 
 export default RegisterLoginButton;
-
-//todo arreglar la interfaz

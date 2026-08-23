@@ -12,11 +12,14 @@ import { Button } from "../ui/button";
 import { useTransition } from "react";
 import useAuthentication from "@/hooks/useAuthentication";
 import RegisterLoginButton from "../register-loginButton";
+import { toast } from "sonner";
 const FormRegister = () => {
+  //* estados y funciones
+
   const [isLoading, setTransition] = useTransition();
   const { register } = useAuthentication();
 
-  //* 1 inicializar form con type y schema
+  //* 1 inicializar form con type
   const form = useForm<RegisterZodSchemaType>({
     resolver: zodResolver(RegisterZodSchema),
     mode: "onTouched",
@@ -26,17 +29,27 @@ const FormRegister = () => {
     },
   });
 
-  //* 2 se ejecuta solo cuando es valido
+  //* FormSubmit
   const FormSubmit = (data: RegisterZodSchemaType) => {
     //* si se se oprimio el boton y se esta cargando guardar el estado
     setTransition(async () => {
       const result = await register(data);
       console.log(result.mensaje);
+      //* imprimir mensaje o error
+      if (result.valido) {
+        toast.success(result.mensaje);
+      } else {
+        toast.error(result.mensaje);
+      }
     });
   };
 
   return (
-    <form id="form-login" onSubmit={form.handleSubmit(FormSubmit)}>
+    <form
+      id="form-register"
+      onSubmit={form.handleSubmit(FormSubmit)}
+      className="bg-green-100 border-green-300 w-full max-w-3xl shadow-lg text-center gap-y-4 p-6"
+    >
       <CardContent>
         <FieldGroup>
           <Controller
@@ -44,10 +57,15 @@ const FormRegister = () => {
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="form-login-email">Email</FieldLabel>
+                <FieldLabel
+                  className="font-medium  text-xl md:text-2xl text-slate-700"
+                  htmlFor="form-register-email"
+                >
+                  Email
+                </FieldLabel>
                 <Input
                   {...field}
-                  id="form-login-email"
+                  id="form-register-email"
                   aria-invalid={fieldState.invalid}
                   placeholder="example@gmail.com"
                   autoComplete="email"
@@ -63,11 +81,16 @@ const FormRegister = () => {
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="form-login-password">Password</FieldLabel>
+                <FieldLabel
+                  className="font-medium  text-xl md:text-2xl text-slate-700"
+                  htmlFor="form-register-password"
+                >
+                  Password
+                </FieldLabel>
                 <Input
                   {...field}
                   type="password"
-                  id="form-login-password"
+                  id="form-register-password"
                   aria-invalid={fieldState.invalid}
                   placeholder="••••••••"
                   autoComplete="current-password"
@@ -82,7 +105,7 @@ const FormRegister = () => {
       </CardContent>
 
       <CardFooter className=" justify-center">
-        <RegisterLoginButton />
+        <RegisterLoginButton isLoading={isLoading} formReset={form.reset} />
       </CardFooter>
     </form>
   );

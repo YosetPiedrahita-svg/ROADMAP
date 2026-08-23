@@ -24,13 +24,8 @@
     },
     {
       "file": "app/(auth)/register/page.tsx",
-      "description": "5 Registro de usuarios x correo electronico u otros medios",
+      "description": "5 Registro de usuarios por correo : \r\nvalidaciones de campos \r\nactualmente permite registro por correo electronico",
       "line": 1
-    },
-    {
-      "file": "components/register/form-register.tsx",
-      "description": "formulario de registro ",
-      "line": 2
     }
   ]
 }

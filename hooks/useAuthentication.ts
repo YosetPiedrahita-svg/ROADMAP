@@ -4,7 +4,7 @@ import {
   User,
   UserCredential,
 } from "firebase/auth";
-import { useAuth, useUser } from "reactfire";
+import { useAuth } from "reactfire";
 
 const useAuthentication = () => {
   interface RegisterValidation {
@@ -13,7 +13,6 @@ const useAuthentication = () => {
     mensaje: string;
   }
   const auth = useAuth();
-  const { data: user } = useUser();
 
   //* permitir la autorizacion x correo
   const register = async ({
@@ -35,7 +34,7 @@ const useAuthentication = () => {
       return {
         user: registerUser.user,
         valido: true,
-        mensaje: "Usuario registrado en el sistema correctamente",
+        mensaje: "USUARIO REGISTRADO EN EL SISTEMA CORRECTAMENTE",
       };
 
       //* si algo fallo en la creacion
@@ -43,7 +42,7 @@ const useAuthentication = () => {
       console.error("error : ", e);
       return {
         valido: false,
-        mensaje: "error en el registro del usuario",
+        mensaje: "ERROR, EL USARIO NO HA PODIDO SER REGISTRADO",
       };
     }
   };
