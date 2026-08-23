@@ -8,6 +8,11 @@
       "line": 1
     },
     {
+      "file": "app/(auth)/register/page.tsx",
+      "description": "5 Registro de usuarios x correo electronico u otros medios",
+      "line": 1
+    },
+    {
       "file": "app/(public)/page.tsx",
       "description": "4 Paginas Publicas sin estar autenticado\r\n",
       "line": 1
