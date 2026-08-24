@@ -122,3 +122,6 @@ const FormRegister = () => {
   );
 };
 export default FormRegister;
+
+//todo hace lo mismo pero ahora con login
+//todo hacer un loading hacia cargar usuario y que no se vea el form

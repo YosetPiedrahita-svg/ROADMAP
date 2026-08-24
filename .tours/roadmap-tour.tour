@@ -24,8 +24,18 @@
     },
     {
       "file": "app/(auth)/register/page.tsx",
-      "description": "5 Registro de usuarios : \r\nvalidaciones de campos \r\n permite registro por correo electronico\r\n  permite registro por Gmail\r\n  falta =========================\r\n  poder identificar si ya esta logeado para que no pueda venir aca ni registrarse",
-      "line": 1
+      "description": "5 Registro de usuarios : \r\nvalidaciones de campos \r\n permite registro por correo electronico\r\n  permite registro por Gmail\r\n  imrprime error de correos repetidos\r\n  falta =========================\r\n  poder identificar si ya esta logeado para que no pueda venir aca ni registrarse",
+      "line": 1,
+      "selection": {
+        "start": {
+          "line": 7,
+          "character": 58
+        },
+        "end": {
+          "line": 7,
+          "character": 63
+        }
+      }
     }
   ]
 }

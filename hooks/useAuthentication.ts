@@ -1,4 +1,6 @@
 import { RegisterZodSchemaType } from "@/lib/schemas/zodSchemas";
+import { error } from "console";
+import { FirebaseError } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -6,7 +8,7 @@ import {
   User,
   UserCredential,
 } from "firebase/auth";
-import { useAuth } from "reactfire";
+import { useAuth, useSigninCheck } from "reactfire";
 
 const useAuthentication = () => {
   //* interfaz especifa para las validaciones de registro
@@ -41,11 +43,17 @@ const useAuthentication = () => {
         mensaje: "USUARIO REGISTRADO EN EL SISTEMA CORRECTAMENTE",
       };
     } catch (e) {
-      //* si algo fallo en la creacion
-      console.error("error: ", e);
+      //* crear variable de error generico
+      let mensajeError = "ERROR, EL USARIO NO HA PODIDO SER REGISTRADO";
+      if (e instanceof FirebaseError) {
+        if (e.code == "auth/email-already-in-use") {
+          mensajeError =
+            "EL CORRE CON EL QUE SE REGISTRO ACTUALMENTE YA ESTA EN USO";
+        }
+      }
       return {
         valido: false,
-        mensaje: "ERROR, EL USARIO NO HA PODIDO SER REGISTRADO",
+        mensaje: mensajeError,
       };
     }
   };
@@ -81,6 +89,3 @@ const useAuthentication = () => {
 };
 
 export default useAuthentication;
-
-// todo mandar el mensaje especifico de cada error( si ya esta registrado , es de red )
-// todo impedir a un usario ya autorizado esta interfaz
