@@ -24,7 +24,7 @@
     },
     {
       "file": "app/(auth)/register/page.tsx",
-      "description": "5 Registro de usuarios : \r\nvalidaciones de campos \r\n permite registro por correo electronico\r\n  permite registro por Gmail\r\n  imrprime error de correos repetidos\r\n  falta =========================\r\n  poder identificar si ya esta logeado para que no pueda venir aca ni registrarse",
+      "description": "5 Registro de usuarios : \r\nvalidaciones de campos \r\n permite registro por correo electronico\r\n  permite registro por Gmail\r\n  imrprime error de correos repetidos\r\n  si el usuario ya esta logead oes redirigido inmediatamene\r\n  falta =========================\r\n  poder returnar un mensaje de que esta entrando el usuario\r\n  colocar el hlink de login",
       "line": 1,
       "selection": {
         "start": {

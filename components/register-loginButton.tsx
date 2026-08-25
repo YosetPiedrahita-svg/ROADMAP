@@ -3,6 +3,9 @@ import { Mail, Eraser } from "lucide-react";
 import { Button } from "./ui/button";
 import { UseFormReset } from "react-hook-form";
 import { RegisterZodSchemaType } from "@/lib/schemas/zodSchemas";
+import { useSigninCheck } from "reactfire";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 //* Props
 interface Props {
@@ -12,6 +15,7 @@ interface Props {
 }
 
 //todo botones individuales de registro falta modo login
+
 const RegisterLoginButton = ({
   isLoading,
   formReset,

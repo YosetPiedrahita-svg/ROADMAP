@@ -8,16 +8,28 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CardContent, CardFooter } from "../ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
-import { useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import useAuthentication from "@/hooks/useAuthentication";
 import RegisterLoginButton from "../register-loginButton";
 import { toast } from "sonner";
+import { useSigninCheck } from "reactfire";
+import { useRouter } from "next/navigation";
 
 const FormRegister = () => {
   //* estados y funciones
 
+  //todo botones individuales de registro falta modo login
+  const { status, data: signInCheckResult } = useSigninCheck();
+  const router = useRouter();
   const [isLoading, setTransition] = useTransition();
   const { registerWithEmail, registerWithGoogle } = useAuthentication();
+
+  //* si el usario existe es renderizado
+  useEffect(() => {
+    if (status === "success" && signInCheckResult?.signedIn) {
+      router.push("/");
+    }
+  }, [status, signInCheckResult, router]);
 
   //* 1 inicializar form con type
   const form = useForm<RegisterZodSchemaType>({
@@ -51,77 +63,82 @@ const FormRegister = () => {
     else toast.error(result.mensaje);
   };
 
-  return (
-    <form
-      id="form-register"
-      onSubmit={form.handleSubmit(FormSubmit)}
-      className="bg-green-100 border-green-300 w-full max-w-3xl shadow-lg text-center gap-y-4 p-6"
-    >
-      <CardContent>
-        <FieldGroup>
-          <Controller
-            name="email"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel
-                  className="font-medium  text-xl md:text-2xl text-slate-700"
-                  htmlFor="form-register-email"
-                >
-                  Email
-                </FieldLabel>
-                <Input
-                  {...field}
-                  id="form-register-email"
-                  aria-invalid={fieldState.invalid}
-                  placeholder="example@gmail.com"
-                  autoComplete="email"
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
-          <Controller
-            name="password"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel
-                  className="font-medium  text-xl md:text-2xl text-slate-700"
-                  htmlFor="form-register-password"
-                >
-                  Password
-                </FieldLabel>
-                <Input
-                  {...field}
-                  type="password"
-                  id="form-register-password"
-                  aria-invalid={fieldState.invalid}
-                  placeholder="••••••••"
-                  autoComplete="current-password"
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
-        </FieldGroup>
-      </CardContent>
+  //! diferencia si existe usuario no renderiza y lo manda directamente
+  return status === "success" && !signInCheckResult.signedIn ? (
+    <div>
+      <h1 className="font-mono text-3xl md:text-4xl font-extrabold tracking-tight text-green-900 mb-4">
+        FORMULARIO DE REGISTRO
+      </h1>
+      <form
+        id="form-register"
+        onSubmit={form.handleSubmit(FormSubmit)}
+        className="bg-green-100 border-green-300 w-full max-w-3xl shadow-lg text-center gap-y-4 p-6"
+      >
+        <CardContent>
+          <FieldGroup>
+            <Controller
+              name="email"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel
+                    className="font-medium  text-xl md:text-2xl text-slate-700"
+                    htmlFor="form-register-email"
+                  >
+                    Email
+                  </FieldLabel>
+                  <Input
+                    {...field}
+                    id="form-register-email"
+                    aria-invalid={fieldState.invalid}
+                    placeholder="example@gmail.com"
+                    autoComplete="email"
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+            <Controller
+              name="password"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel
+                    className="font-medium  text-xl md:text-2xl text-slate-700"
+                    htmlFor="form-register-password"
+                  >
+                    Password
+                  </FieldLabel>
+                  <Input
+                    {...field}
+                    type="password"
+                    id="form-register-password"
+                    aria-invalid={fieldState.invalid}
+                    placeholder="••••••••"
+                    autoComplete="current-password"
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+          </FieldGroup>
+        </CardContent>
 
-      <CardFooter className=" justify-center">
-        <RegisterLoginButton
-          isLoading={isLoading}
-          formReset={form.reset}
-          handleGoogleSubmit={handleGoogleSubmit}
-        />
-      </CardFooter>
-    </form>
-  );
+        <CardFooter className=" justify-center">
+          <RegisterLoginButton
+            isLoading={isLoading}
+            formReset={form.reset}
+            handleGoogleSubmit={handleGoogleSubmit}
+          />
+        </CardFooter>
+      </form>
+    </div>
+  ) : null;
 };
 export default FormRegister;
 
 //todo hace lo mismo pero ahora con login
-//todo hacer un loading hacia cargar usuario y que no se vea el form
