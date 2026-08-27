@@ -43,6 +43,11 @@
       }
     },
     {
+      "file": "app/(auth)/login/page.tsx",
+      "description": "pagina de login dle usario\r\n==========================================\r\nverificar no estar logeado\r\nredirigir el mimo componente que register adaptado",
+      "line": 1
+    },
+    {
       "file": "app/(auth)/home/page.tsx",
       "description": "temporalmente la pagina final objetivo ",
       "line": 1
