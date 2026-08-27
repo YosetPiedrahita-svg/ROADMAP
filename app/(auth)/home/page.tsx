@@ -1,5 +1,12 @@
+import { Button } from "@/components/ui/button";
+
 const HomePage = () => {
-  return <div>HomePage</div>;
+  return (
+    <main>
+      <h1>bienvenido</h1>
+      <Button variant={"destructive"}>cerrar seccion</Button>
+    </main>
+  );
 };
 export default HomePage;
 

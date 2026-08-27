@@ -1,9 +1,10 @@
-import { RegisterZodSchemaType } from "@/lib/schemas/zodSchemas";
+import { RegisterLoginZodSchemaType } from "@/lib/schemas/zodSchemas";
 import { error } from "console";
 import { FirebaseError } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  signInWithEmailAndPassword,
   signInWithPopup,
   User,
   UserCredential,
@@ -24,7 +25,7 @@ const useAuthentication = () => {
   const registerWithEmail = async ({
     email,
     password,
-  }: RegisterZodSchemaType): Promise<RegisterValidation> => {
+  }: RegisterLoginZodSchemaType): Promise<RegisterValidation> => {
     try {
       const registerUser = await createUserWithEmailAndPassword(
         auth,
@@ -57,8 +58,7 @@ const useAuthentication = () => {
       };
     }
   };
-
-  //* permitir autorizacion via Gmail
+  //* permitir autorizacion via Gmail- inicio de seccion
   const registerWithGoogle = async (): Promise<RegisterValidation> => {
     try {
       //* provedor del cual provienen los permisos y funcion de respuesta con devolucion
@@ -85,7 +85,38 @@ const useAuthentication = () => {
     }
   };
 
-  return { registerWithEmail, registerWithGoogle };
+  //* inicio de seccion
+  const loginWithEmail = async ({
+    email,
+    password,
+  }: RegisterLoginZodSchemaType): Promise<RegisterValidation> => {
+    try {
+      const loginUser = await signInWithEmailAndPassword(auth, email, password);
+
+      //* Si llega aquí, fue exitoso
+      console.log("login exitoso, usuario authenticado: ", loginUser.user);
+
+      return {
+        user: loginUser.user,
+        valido: true,
+        mensaje: "USUARIO LOGEADO CORRECTAMENTE",
+      };
+    } catch (e) {
+      console.error("error: ", e);
+      let mensajeError = "ERROR AL INICIAR SESIÓN";
+      if (e instanceof FirebaseError) {
+        if (
+          e.code === "auth/invalid-credential" ||
+          e.code === "auth/user-not-found"
+        ) {
+          mensajeError = "CORREO O CONTRASEÑA INCORRECTOS";
+        }
+      }
+      return { valido: false, mensaje: mensajeError };
+    }
+  };
+
+  return { registerWithEmail, registerWithGoogle, loginWithEmail };
 };
 
 export default useAuthentication;

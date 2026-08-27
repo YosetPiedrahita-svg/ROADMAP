@@ -27,7 +27,8 @@ const FormRegisterLogin = ({ page }: Props) => {
   const { status, data: signInCheckResult } = useSigninCheck();
   const router = useRouter();
   const [isLoading, setTransition] = useTransition();
-  const { registerWithEmail, registerWithGoogle } = useAuthentication();
+  const { registerWithEmail, registerWithGoogle, loginWithEmail } =
+    useAuthentication();
 
   //* si el usario existe es renderizado
   useEffect(() => {
@@ -48,11 +49,14 @@ const FormRegisterLogin = ({ page }: Props) => {
 
   //* FormSubmit
   const FormSubmit = (data: RegisterLoginZodSchemaType) => {
-    //* si se se oprimio el boton y se esta cargando guardar el estado
     setTransition(async () => {
-      const result = await registerWithEmail(data);
+      // 1. Elegir la función según la página actual
+      const authAction = page === "login" ? loginWithEmail : registerWithEmail;
+
+      // 2. Ejecutar la acción y mostrar el feedback
+      const result = await authAction(data);
       console.log(result.mensaje);
-      //* imprimir mensaje o error
+
       if (result.valido) {
         toast.success(result.mensaje);
       } else {
