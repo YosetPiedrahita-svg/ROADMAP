@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 //* schema para register
-export const RegisterZodSchema = z.object({
+export const RegisterLoginZodSchema = z.object({
   email: z.email("no es un formato de email valido"),
   password: z
     .string()
@@ -9,4 +9,4 @@ export const RegisterZodSchema = z.object({
 });
 
 //* pasarlo a un type para toda la app
-export type RegisterZodSchemaType = z.infer<typeof RegisterZodSchema>;
+export type RegisterLoginZodSchemaType = z.infer<typeof RegisterLoginZodSchema>;

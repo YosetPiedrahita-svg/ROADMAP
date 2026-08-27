@@ -1,4 +1,4 @@
-import FormRegister from "@/components/form-registerLogin";
+import FormRegisterLogin from "@/components/form-registerLogin";
 
 const LoginPage = () => {
   return (
@@ -7,7 +7,7 @@ const LoginPage = () => {
      items-center  justify-center
      min-h-screen min-w-screen"
     >
-      <FormRegister page={"login"} />
+      <FormRegisterLogin page={"login"} />
     </main>
   );
 };

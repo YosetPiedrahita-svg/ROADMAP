@@ -1,7 +1,7 @@
 "use client";
 import {
-  RegisterZodSchema,
-  RegisterZodSchemaType,
+  RegisterLoginZodSchema,
+  RegisterLoginZodSchemaType,
 } from "@/lib/schemas/zodSchemas";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,8 +37,8 @@ const FormRegisterLogin = ({ page }: Props) => {
   }, [status, signInCheckResult, router]);
 
   //* 1 inicializar form con type
-  const form = useForm<RegisterZodSchemaType>({
-    resolver: zodResolver(RegisterZodSchema),
+  const form = useForm<RegisterLoginZodSchemaType>({
+    resolver: zodResolver(RegisterLoginZodSchema),
     mode: "onTouched",
     defaultValues: {
       email: "",
@@ -47,7 +47,7 @@ const FormRegisterLogin = ({ page }: Props) => {
   });
 
   //* FormSubmit
-  const FormSubmit = (data: RegisterZodSchemaType) => {
+  const FormSubmit = (data: RegisterLoginZodSchemaType) => {
     //* si se se oprimio el boton y se esta cargando guardar el estado
     setTransition(async () => {
       const result = await registerWithEmail(data);
@@ -73,7 +73,7 @@ const FormRegisterLogin = ({ page }: Props) => {
   return status === "success" && !signInCheckResult.signedIn ? (
     <div>
       <h1 className="font-mono text-3xl md:text-4xl font-extrabold tracking-tight text-green-900 mb-4">
-        {page === "register" ? "FORMULARIO DE REGISTRO" : " INICIAR SECCION"}
+        {page === "register" ? "FORMULARIO DE REGISTRO" : " INICIAR SESIÓN"}
       </h1>
       <form
         id="form-registerLogin"
@@ -151,3 +151,4 @@ export default FormRegisterLogin;
 //todo hace lo mismo pero ahora con login
 //todo cambiar nombre al schema
 //todo funcion para iniciar seccion no solo registro
+//todo un boton no ocupa todo su espacio

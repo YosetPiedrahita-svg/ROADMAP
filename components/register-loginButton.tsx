@@ -2,7 +2,7 @@
 import { Mail, Eraser } from "lucide-react";
 import { Button } from "./ui/button";
 import { UseFormReset } from "react-hook-form";
-import { RegisterZodSchemaType } from "@/lib/schemas/zodSchemas";
+import { RegisterLoginZodSchemaType } from "@/lib/schemas/zodSchemas";
 import { useSigninCheck } from "reactfire";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -10,7 +10,7 @@ import { useEffect } from "react";
 //* Props
 interface Props {
   isLoading: boolean;
-  formReset: UseFormReset<RegisterZodSchemaType>;
+  formReset: UseFormReset<RegisterLoginZodSchemaType>;
   handleGoogleSubmit: () => void;
   page: "login" | "register";
 }
@@ -103,4 +103,4 @@ const RegisterLoginButton = ({
 
 export default RegisterLoginButton;
 
-//todo specificar cuando sea register y cuando login
+//todo specificar  la funcion del boton cuando sea register y cuando login
