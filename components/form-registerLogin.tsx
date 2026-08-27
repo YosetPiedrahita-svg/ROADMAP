@@ -5,17 +5,22 @@ import {
 } from "@/lib/schemas/zodSchemas";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CardContent, CardFooter } from "../ui/card";
-import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
-import { Input } from "../ui/input";
+import { CardContent, CardFooter } from "./ui/card";
+import { Field, FieldError, FieldGroup, FieldLabel } from "./ui/field";
+import { Input } from "./ui/input";
 import { useEffect, useTransition } from "react";
 import useAuthentication from "@/hooks/useAuthentication";
-import RegisterLoginButton from "../register-loginButton";
+import RegisterLoginButton from "./register-loginButton";
 import { toast } from "sonner";
 import { useSigninCheck } from "reactfire";
 import { useRouter } from "next/navigation";
 
-const FormRegister = () => {
+//! interface para saber de donde proviene
+interface Props {
+  page: "login" | "register";
+}
+
+const FormRegisterLogin = ({ page }: Props) => {
   //* estados y funciones
 
   //todo botones individuales de registro falta modo login
@@ -64,13 +69,14 @@ const FormRegister = () => {
   };
 
   //! diferencia si existe usuario no renderiza y lo manda directamente
+  //* el texto se corresponde con la pagina proveniente
   return status === "success" && !signInCheckResult.signedIn ? (
     <div>
       <h1 className="font-mono text-3xl md:text-4xl font-extrabold tracking-tight text-green-900 mb-4">
-        FORMULARIO DE REGISTRO
+        {page === "register" ? "FORMULARIO DE REGISTRO" : " INICIAR SECCION"}
       </h1>
       <form
-        id="form-register"
+        id="form-registerLogin"
         onSubmit={form.handleSubmit(FormSubmit)}
         className="bg-green-100 border-green-300 w-full max-w-3xl shadow-lg text-center gap-y-4 p-6"
       >
@@ -83,13 +89,13 @@ const FormRegister = () => {
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel
                     className="font-medium  text-xl md:text-2xl text-slate-700"
-                    htmlFor="form-register-email"
+                    htmlFor="form-registerLogin-email"
                   >
                     Email
                   </FieldLabel>
                   <Input
                     {...field}
-                    id="form-register-email"
+                    id="form-registerLogin-email"
                     aria-invalid={fieldState.invalid}
                     placeholder="example@gmail.com"
                     autoComplete="email"
@@ -107,14 +113,14 @@ const FormRegister = () => {
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel
                     className="font-medium  text-xl md:text-2xl text-slate-700"
-                    htmlFor="form-register-password"
+                    htmlFor="form-registerLogin-password"
                   >
                     Password
                   </FieldLabel>
                   <Input
                     {...field}
                     type="password"
-                    id="form-register-password"
+                    id="form-registerLogin-password"
                     aria-invalid={fieldState.invalid}
                     placeholder="••••••••"
                     autoComplete="current-password"
@@ -130,6 +136,7 @@ const FormRegister = () => {
 
         <CardFooter className=" justify-center">
           <RegisterLoginButton
+            page={page}
             isLoading={isLoading}
             formReset={form.reset}
             handleGoogleSubmit={handleGoogleSubmit}
@@ -139,6 +146,8 @@ const FormRegister = () => {
     </div>
   ) : null;
 };
-export default FormRegister;
+export default FormRegisterLogin;
 
 //todo hace lo mismo pero ahora con login
+//todo cambiar nombre al schema
+//todo funcion para iniciar seccion no solo registro

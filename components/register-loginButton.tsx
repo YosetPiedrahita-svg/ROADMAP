@@ -12,6 +12,7 @@ interface Props {
   isLoading: boolean;
   formReset: UseFormReset<RegisterZodSchemaType>;
   handleGoogleSubmit: () => void;
+  page: "login" | "register";
 }
 
 //todo botones individuales de registro falta modo login
@@ -20,19 +21,20 @@ const RegisterLoginButton = ({
   isLoading,
   formReset,
   handleGoogleSubmit,
+  page,
 }: Props) => {
   return (
     <div className="flex flex-col items-center mt-8 gap-6 w-full max-w-sm mx-auto p-6 ">
       {/* Título principal */}
       <h1 className="font-mono text-xl md:text-2xl font-bold tracking-tight text-emerald-900 uppercase">
-        Register or Login
+        {page === "login" ? "login" : "register here"}
       </h1>
 
       {/* Botones principales */}
       <div className="flex flex-col sm:flex-row gap-3 w-full">
         <Button
           type="submit"
-          form="form-register"
+          form="form-registerLogin"
           disabled={isLoading}
           className="flex-1 transition-all duration-200 shadow-sm hover:shadow"
         >
