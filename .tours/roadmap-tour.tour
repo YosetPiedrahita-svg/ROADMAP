@@ -3,6 +3,11 @@
   "title": "RoadMap tour",
   "steps": [
     {
+      "file": "README.md",
+      "description": "ROADMAP = PAGINA WEB DE REGISTRO DE TAREAS \r\nOBJETIVOS ============================================\r\n1 Registro e Inicio de Sesión: Todo usuario debe registrarse obligatoriamente con su correo electrónico y contraseña (o un proveedor externo como Google). Nadie puede ver el sistema sin estar autenticado.",
+      "line": 1
+    },
+    {
       "file": "config/firebase.ts",
       "description": "1. configuracion incial del proyecto a firebase como backend externo\r\n",
       "line": 1
@@ -36,6 +41,11 @@
           "character": 63
         }
       }
+    },
+    {
+      "file": "app/(auth)/home/page.tsx",
+      "description": "temporalmente la pagina final objetivo ",
+      "line": 1
     }
   ]
 }

@@ -27,7 +27,7 @@ const FormRegister = () => {
   //* si el usario existe es renderizado
   useEffect(() => {
     if (status === "success" && signInCheckResult?.signedIn) {
-      router.push("/");
+      router.replace("/home");
     }
   }, [status, signInCheckResult, router]);
 

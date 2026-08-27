@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 
-const HomePage = () => {
+const PublicPage = () => {
   return (
     <main className="flex flex-col items-center justify-center min-h-screen w-screen bg-slate-50 p-4">
       <Card className="bg-green-100 border-green-300 w-full max-w-3xl shadow-lg text-center gap-y-4 p-6">
@@ -54,4 +54,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default PublicPage;
