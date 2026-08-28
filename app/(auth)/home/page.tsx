@@ -5,6 +5,7 @@ const HomePage = () => {
     <main>
       <h1>bienvenido</h1>
       <Button variant={"destructive"}>cerrar seccion</Button>
+      <Button>a</Button>
     </main>
   );
 };
