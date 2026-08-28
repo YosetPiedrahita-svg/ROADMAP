@@ -11,6 +11,5 @@ const HomePage = () => {
 export default HomePage;
 
 // todo queda como ultimo objetivo cargar los datos de usuarios mientras tiene un login
-// todo antes de eso definir su interfaz y como guardarlo en la db
 // todo hacer un layout
 // todo hacer una pagina de not found y loading justas
