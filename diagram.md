@@ -1,4 +1,4 @@
-## Diagrama Entidad-Relación
+# Diagrama Entidad-Relación
 
 ```mermaid
 erDiagram
@@ -23,3 +23,4 @@ erDiagram
         datetime due_date
         string priority "high, low, medium"
     }
+```
