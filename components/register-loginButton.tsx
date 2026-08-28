@@ -3,9 +3,6 @@ import { Mail, Eraser } from "lucide-react";
 import { Button } from "./ui/button";
 import { UseFormReset } from "react-hook-form";
 import { RegisterLoginZodSchemaType } from "@/lib/schemas/zodSchemas";
-import { useSigninCheck } from "reactfire";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import Link from "next/link";
 
 //* Props
