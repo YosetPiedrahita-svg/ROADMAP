@@ -6,6 +6,7 @@ import { RegisterLoginZodSchemaType } from "@/lib/schemas/zodSchemas";
 import { useSigninCheck } from "reactfire";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import Link from "next/link";
 
 //* Props
 interface Props {
@@ -23,6 +24,11 @@ const RegisterLoginButton = ({
   handleGoogleSubmit,
   page,
 }: Props) => {
+  const targetPage = page === "login" ? "register" : "login";
+  const textPage =
+    page === "login"
+      ? "No posee uan cuenta?, por favor registrese"
+      : "Ya esta registrado?, Inicie Sesion aqui";
   return (
     <div className="flex flex-col items-center mt-8 gap-6 w-full max-w-sm mx-auto p-6 ">
       {/* Título principal */}
@@ -96,6 +102,12 @@ const RegisterLoginButton = ({
           />
         </svg>
         <span className="font-medium text-slate-700">Google</span>
+      </Button>
+      <Button
+        variant={"link"}
+        className="relative px-3 text-xs uppercase tracking-wider text-emerald-900 font-medium"
+      >
+        <Link href={`/${targetPage}`}>{textPage}</Link>
       </Button>
     </div>
   );

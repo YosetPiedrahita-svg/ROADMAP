@@ -24,7 +24,7 @@
     },
     {
       "file": "app/(public)/page.tsx",
-      "description": "4 Paginas Publicas sin estar autenticado :\r\npermite redirigirse a registro\r\nPENDIENTE IR A LOGIN\r\n",
+      "description": "4 Paginas Publicas sin estar autenticado :\r\npermite redirigirse a registro\r\nintercambiar pagina login o register\r\n\r\n",
       "line": 1
     },
     {

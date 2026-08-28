@@ -76,7 +76,7 @@ const FormRegisterLogin = ({ page }: Props) => {
   //* el texto se corresponde con la pagina proveniente
   return status === "success" && !signInCheckResult.signedIn ? (
     <div>
-      <h1 className="font-mono text-3xl md:text-4xl font-extrabold tracking-tight text-green-900 mb-4">
+      <h1 className="font-mono text-3xl md:text-4xl font-extrabold tracking-tight text-green-900 mb-4 text-center">
         {page === "register" ? "FORMULARIO DE REGISTRO" : " INICIAR SESIÓN"}
       </h1>
       <form
