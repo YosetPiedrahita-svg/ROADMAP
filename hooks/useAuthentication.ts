@@ -6,19 +6,25 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
   User,
   UserCredential,
 } from "firebase/auth";
 import { useAuth, useSigninCheck } from "reactfire";
 
-const useAuthentication = () => {
-  //* interfaz especifa para las validaciones de registro
-  interface RegisterValidation {
-    user?: User;
-    valido: boolean;
-    mensaje: string;
-  }
+//* interfaz especifa para las validaciones de registro
+interface RegisterValidation {
+  user?: User;
+  valido: boolean;
+  mensaje: string;
+}
 
+interface exitSeccion {
+  valido: boolean;
+  mensaje: string;
+}
+
+const useAuthentication = () => {
   const auth = useAuth();
 
   //* permitir la autorizacion x Email
@@ -116,7 +122,29 @@ const useAuthentication = () => {
     }
   };
 
-  return { registerWithEmail, registerWithGoogle, loginWithEmail };
+  //* cerrar seccion actual
+  const closeSeccion = async (): Promise<exitSeccion> => {
+    try {
+      await signOut(auth);
+      //* si llego aca es valido
+      return { valido: true, mensaje: "Session cerrada con exito " };
+    } catch (e) {
+      if (e instanceof FirebaseError) {
+        console.error("error: ", e.message);
+      }
+      return {
+        valido: false,
+        mensaje: "ERROR CRITICO, imposible cerrar seccion",
+      };
+    }
+  };
+
+  return {
+    registerWithEmail,
+    registerWithGoogle,
+    loginWithEmail,
+    closeSeccion,
+  };
 };
 
 export default useAuthentication;

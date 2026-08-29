@@ -3,11 +3,10 @@ import { collection } from "firebase/firestore";
 import { useFirestore, useUser } from "reactfire";
 
 export const useUserFirebase = () => {
-  const { status, data: user } = useUser();
   const db = useFirestore();
   const userRef = collection(db, "users");
 
-  //* probar imprimir un usario generico sencillo sin guardar aun
+  //* probar registrar  un usario generico sencillo
   const registerUserDB = () => {
     const newUser: userFirebaseType = {
       id: "1",
