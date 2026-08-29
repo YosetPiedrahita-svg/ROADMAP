@@ -1,4 +1,4 @@
 const idPage = () => {
-  return <div>idPage</div>;
+  return <main>hola</main>;
 };
 export default idPage;

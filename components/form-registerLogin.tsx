@@ -33,7 +33,7 @@ const FormRegisterLogin = ({ page }: Props) => {
   //* si el usario existe es renderizado
   useEffect(() => {
     if (status === "success" && signInCheckResult?.signedIn) {
-      router.replace("/home");
+      router.replace(`/home/${signInCheckResult.user.uid}`);
     }
   }, [status, signInCheckResult, router]);
 

@@ -3,7 +3,7 @@ import { z } from "zod";
 //* definir el schema con sus reglas
 export const userFirebase = z.object({
   id: z.string(),
-  email: z.string(),
+  email: z.email(),
   name: z.string(),
   photoURL: z.string(),
   created: z.string(),
