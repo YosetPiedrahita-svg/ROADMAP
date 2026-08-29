@@ -23,3 +23,6 @@ export const useUserFirebase = () => {
 
   return { registerUserDB };
 };
+
+//todo intentanr guardar el usario en la db
+//todo despues intentar imprimirlo en pantalla

@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useSigninCheck } from "reactfire";
 import { toast } from "sonner";
+import FooterHome from "@/components/home/footer-home";
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   const { status, data: signInCheckResult } = useSigninCheck();
@@ -17,10 +18,15 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   }, [status, signInCheckResult, router]);
 
   return status === "success" && signInCheckResult.signedIn ? (
-    <main>
-      {children}
-      <footer className="font-bold">pie de pagina</footer>
-    </main>
+    <div className="min-h-screen min-w-screen">
+      <header>
+        <p>head</p>
+      </header>
+      <main> {children}</main>
+      <footer className="fixed bottom-0 left-0 w-full bg-teal-600 border-t border-gray-200 py-4  ">
+        <FooterHome></FooterHome>
+      </footer>
+    </div>
   ) : (
     <p>loading user...</p>
   );

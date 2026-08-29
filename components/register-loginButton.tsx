@@ -111,5 +111,3 @@ const RegisterLoginButton = ({
 };
 
 export default RegisterLoginButton;
-
-//todo specificar  la funcion del boton cuando sea register y cuando login

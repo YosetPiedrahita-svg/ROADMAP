@@ -152,7 +152,4 @@ const FormRegisterLogin = ({ page }: Props) => {
 };
 export default FormRegisterLogin;
 
-//todo hace lo mismo pero ahora con login
-//todo cambiar nombre al schema
-//todo funcion para iniciar seccion no solo registro
 //todo un boton no ocupa todo su espacio
