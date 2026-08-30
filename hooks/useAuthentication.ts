@@ -79,6 +79,11 @@ const useAuthentication = () => {
       const registerUser = await signInWithPopup(auth, provider);
 
       //* si llega hasta aca ya fue exitoso
+      //! guardar al mismo tiempo en la db
+      const registerDB = await registerUserDB(registerUser.user);
+      if (!registerDB.valido) {
+        console.error("Error: ", registerDB.mensaje);
+      }
       console.log(
         "Registro exitoso, usuario authenticado via Gmail: ",
         registerUser.user,
@@ -155,5 +160,3 @@ const useAuthentication = () => {
 };
 
 export default useAuthentication;
-
-// todo guardar datos en la db con metodo de google
