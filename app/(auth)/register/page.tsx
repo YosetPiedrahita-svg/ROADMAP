@@ -1,5 +1,5 @@
 import FormRegister from "@/components/form-registerLogin";
-
+//* renderizar el formulario de registro
 const RegisterPage = () => {
   return (
     <main

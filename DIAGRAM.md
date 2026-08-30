@@ -4,12 +4,12 @@
 erDiagram
     USER ||--|{ TASK : "1 ..*"
 
-    USER {
+  class USER {
         string id PK
         string email
         string name
         string photoURL
-        datetime created
+        timestamp created "Timestamp de Firestore"
         boolean is_active
     }
 

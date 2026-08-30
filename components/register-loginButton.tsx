@@ -3,11 +3,7 @@ import { Mail, Eraser } from "lucide-react";
 import { Button } from "./ui/button";
 import { UseFormReset } from "react-hook-form";
 import { RegisterLoginZodSchemaType } from "@/lib/schemas/zodSchemas";
-import { useSigninCheck } from "reactfire";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 
 //* Props
 interface Props {
@@ -17,8 +13,7 @@ interface Props {
   page: "login" | "register";
 }
 
-//todo botones individuales de registro falta modo login
-
+//* seccion de botones del formulario fuera de la tarjete
 const RegisterLoginButton = ({
   isLoading,
   formReset,
@@ -43,9 +38,7 @@ const RegisterLoginButton = ({
           type="submit"
           form="form-registerLogin"
           disabled={isLoading}
-          className={
-            "flex-1 transition-all duration-200 shadow-sm  hover:shadow cursor-pointer"
-          }
+          className="flex-1 transition-all duration-200 shadow-sm hover:shadow"
         >
           <Mail className="mr-2 h-4 w-4" />
           Continuar
@@ -56,7 +49,7 @@ const RegisterLoginButton = ({
           variant={"destructive"}
           disabled={isLoading}
           onClick={() => formReset()}
-          className="hover:cursor-pointer"
+          className=" hover:text-red-600 transition-all duration-200"
         >
           <Eraser className="mr-2 h-4 w-4" />
           Limpiar
@@ -77,7 +70,7 @@ const RegisterLoginButton = ({
       <Button
         variant="outline"
         type={"button"}
-        className="w-full flex items-center justify-center gap-2 py-5 border-slate-200 hover:cursor-pointer bg-slate-50 transition-all duration-200 shadow-xs"
+        className="w-full flex items-center justify-center gap-2 py-5 border-slate-200 hover:bg-slate-50 transition-all duration-200 shadow-xs"
         disabled={isLoading}
         onClick={handleGoogleSubmit}
       >
@@ -117,5 +110,3 @@ const RegisterLoginButton = ({
 };
 
 export default RegisterLoginButton;
-
-//todo specificar  la funcion del boton cuando sea register y cuando login
