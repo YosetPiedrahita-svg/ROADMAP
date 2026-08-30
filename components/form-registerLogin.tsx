@@ -156,4 +156,4 @@ const FormRegisterLogin = ({ page }: Props) => {
 };
 export default FormRegisterLogin;
 
-//todo un boton no ocupa todo su espacio
+//? remplazo de contenido a la rama master
