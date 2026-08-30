@@ -4,14 +4,12 @@ import { useEffect } from "react";
 import { useSigninCheck } from "reactfire";
 import { toast } from "sonner";
 import FooterHome from "@/components/home/footer-home";
-import { Button } from "@/components/ui/button";
-import useAuthentication from "@/hooks/useAuthentication";
 
+//* layout para todas las paginas de home
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
+  //* funciones y estados
   const { status, data: signInCheckResult } = useSigninCheck();
   const router = useRouter();
-
-  const { closeSeccion } = useAuthentication();
 
   //* verficar estar logeado consulta asincronica del loading
   useEffect(() => {
@@ -26,11 +24,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
       <header>
         <p>head</p>
       </header>
-      <main>
-        {" "}
-        {children}
-        <Button onClick={() => closeSeccion()}>cerrar seccion</Button>
-      </main>
+      <main>{children}</main>
       <footer className="fixed bottom-0 left-0 w-full bg-teal-600 border-t border-gray-200 py-4  ">
         <FooterHome></FooterHome>
       </footer>
@@ -40,3 +34,6 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 export default HomeLayout;
+
+//todo medjorar el loading
+//todo header

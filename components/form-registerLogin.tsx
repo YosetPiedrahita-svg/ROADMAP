@@ -20,6 +20,7 @@ interface Props {
   page: "login" | "register";
 }
 
+//* formulario de registro o loading
 const FormRegisterLogin = ({ page }: Props) => {
   //* estados y funciones
 
@@ -73,7 +74,6 @@ const FormRegisterLogin = ({ page }: Props) => {
   };
 
   //! diferencia si existe usuario no renderiza y lo manda directamente
-  //* el texto se corresponde con la pagina proveniente
   return status === "success" && !signInCheckResult.signedIn ? (
     <div>
       <h1 className="font-mono text-3xl md:text-4xl font-extrabold tracking-tight text-green-900 mb-4 text-center">

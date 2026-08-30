@@ -1,5 +1,4 @@
 import { RegisterLoginZodSchemaType } from "@/lib/schemas/zodSchemas";
-import { error } from "console";
 import { FirebaseError } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
@@ -10,7 +9,10 @@ import {
   User,
   UserCredential,
 } from "firebase/auth";
-import { useAuth, useSigninCheck } from "reactfire";
+import { useAuth } from "reactfire";
+import { useUserFirebase } from "./useUserFirebase";
+
+//* hook de todo lo relacionado con autenticacion y seguridad
 
 //* interfaz especifa para las validaciones de registro
 interface RegisterValidation {
@@ -18,7 +20,7 @@ interface RegisterValidation {
   valido: boolean;
   mensaje: string;
 }
-
+//* interfaz temporal para manejo de secciones
 interface exitSeccion {
   valido: boolean;
   mensaje: string;
@@ -26,6 +28,7 @@ interface exitSeccion {
 
 const useAuthentication = () => {
   const auth = useAuth();
+  const { registerUserDB } = useUserFirebase();
 
   //* permitir la autorizacion x Email
   const registerWithEmail = async ({
@@ -40,10 +43,13 @@ const useAuthentication = () => {
       );
 
       //* Si llega aquí, fue exitoso
-      console.log(
-        "Registro exitoso, usuario authenticado: ",
-        registerUser.user,
-      );
+      const registerDB = await registerUserDB(registerUser.user);
+      if (!registerDB.valido) {
+        console.log("No se pudo guardar en la DB:", registerDB.mensaje);
+      }
+
+      console.log("Registro exitoso, usuario authenticado: ");
+
       return {
         user: registerUser.user,
         valido: true,
@@ -64,6 +70,7 @@ const useAuthentication = () => {
       };
     }
   };
+
   //* permitir autorizacion via Gmail- inicio de seccion
   const registerWithGoogle = async (): Promise<RegisterValidation> => {
     try {
@@ -122,29 +129,31 @@ const useAuthentication = () => {
     }
   };
 
-  //* cerrar seccion actual
-  const closeSeccion = async (): Promise<exitSeccion> => {
-    try {
-      await signOut(auth);
-      //* si llego aca es valido
-      return { valido: true, mensaje: "Session cerrada con exito " };
-    } catch (e) {
-      if (e instanceof FirebaseError) {
-        console.error("error: ", e.message);
-      }
-      return {
-        valido: false,
-        mensaje: "ERROR CRITICO, imposible cerrar seccion",
-      };
-    }
-  };
+  //! cerrar seccion actual
+  // const closeSeccion = async (): Promise<exitSeccion> => {
+  //   try {
+  //     await signOut(auth);
+  //     //* si llego aca es valido
+  //     return { valido: true, mensaje: "Session cerrada con exito " };
+  //   } catch (e) {
+  //     if (e instanceof FirebaseError) {
+  //       console.error("error: ", e.message);
+  //     }
+  //     return {
+  //       valido: false,
+  //       mensaje: "ERROR CRITICO, imposible cerrar seccion",
+  //     };
+  //   }
+  // };
 
   return {
     registerWithEmail,
     registerWithGoogle,
     loginWithEmail,
-    closeSeccion,
+    // closeSeccion,
   };
 };
 
 export default useAuthentication;
+
+// todo guardar datos en la db con metodo de google

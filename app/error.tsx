@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 
+//* errores serios que destruyen toda la app
 export default function GeneralError({
   error,
   reset,
@@ -10,7 +11,6 @@ export default function GeneralError({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Aquí puedes registrar el error en consola o enviarlo a un servicio (ej. Sentry)
     console.error("Error general capturado:", error);
   }, [error]);
 

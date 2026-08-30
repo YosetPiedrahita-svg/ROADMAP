@@ -4,6 +4,8 @@ import "./globals.css";
 import FirebaseServices from "@/config/firebase.services";
 import { Toaster } from "@/components/ui/sonner";
 
+//! laoyut principal de toda la app
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

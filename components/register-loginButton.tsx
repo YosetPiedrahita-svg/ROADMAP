@@ -13,8 +13,7 @@ interface Props {
   page: "login" | "register";
 }
 
-//todo botones individuales de registro falta modo login
-
+//* seccion de botones del formulario fuera de la tarjete
 const RegisterLoginButton = ({
   isLoading,
   formReset,
