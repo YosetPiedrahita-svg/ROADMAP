@@ -36,7 +36,9 @@ const PublicPage = () => {
 
         <CardFooter className="flex flex-col items-center justify-center gap-3 pt-4">
           <Button variant="default" className="w-full max-w-xs">
-            <Link href={"/login"}>Iniciar seccion</Link>
+            <Link href={"/login"} className="w-full">
+              Iniciar seccion
+            </Link>
           </Button>
 
           <div className="text-sm text-slate-600 flex items-center gap-1 flex-wrap justify-center">

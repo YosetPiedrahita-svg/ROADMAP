@@ -148,7 +148,11 @@ const FormRegisterLogin = ({ page }: Props) => {
         </CardFooter>
       </form>
     </div>
-  ) : null;
+  ) : (
+    <h1 className="md:text-2xl font-semibold text-green-900 text-center tracking-tight animate-pulse">
+      Usuario activo encontrado, redirigiendo...
+    </h1>
+  );
 };
 export default FormRegisterLogin;
 

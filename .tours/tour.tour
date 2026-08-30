@@ -4,7 +4,7 @@
   "steps": [
     {
       "title": "Introduction",
-      "description": "Roadmap : \r\nsistema para la gestion de tareas por parte de usarios authenticados \r\n\r\nFUNCIONES PRINCIPALES: \r\n#Usuarios: \r\nRegistro e Inicio de Sesión: Todo usuario debe registrarse obligatoriamente con su correo electrónico y contraseña (o un proveedor externo como Google). Nadie puede ver el sistema sin estar autenticado o sera renderizado a la pagina publica."
+      "description": "Roadmap : \r\nsistema para la gestion de tareas por parte de usarios authenticados \r\n\r\nFUNCIONES PRINCIPALES: \r\n#Usuarios: \r\nRegistro e Inicio de Sesión: Todo usuario debe registrarse obligatoriamente con su correo electrónico y contraseña (o un proveedor externo como Google). Nadie puede ver el sistema sin estar autenticado o sera renderizado a la pagina publica.(cumplida)"
     },
     {
       "file": "DIAGRAM.md",
