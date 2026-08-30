@@ -3,5 +3,3 @@ const idPage = () => {
   return <main>hola mundo</main>;
 };
 export default idPage;
-
-//? cambio para permitir el comit
