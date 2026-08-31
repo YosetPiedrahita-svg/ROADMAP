@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useSigninCheck } from "reactfire";
 import { toast } from "sonner";
 import FooterHome from "@/components/home/footer-home";
+import NavLinkHome from "@/components/home/navlink-home";
 
 //* layout para todas las paginas de home
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
@@ -22,7 +23,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   return status === "success" && signInCheckResult.signedIn ? (
     <div className="min-h-screen min-w-screen">
       <header>
-        <p>head</p>
+        <NavLinkHome></NavLinkHome>
       </header>
       <main>{children}</main>
       <footer className="fixed bottom-0 left-0 w-full bg-teal-600 border-t border-gray-200 py-4  ">
@@ -30,10 +31,9 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
       </footer>
     </div>
   ) : (
-    <p>loading user...</p>
+    <h1 className="md:text-2xl font-semibold text-green-900 text-center tracking-tight animate-pulse">
+      Cargando Usuario...
+    </h1>
   );
 };
 export default HomeLayout;
-
-//todo medjorar el loading
-//todo header

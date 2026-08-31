@@ -11,6 +11,7 @@ erDiagram
         string photoURL
         timestamp created "Timestamp de Firestore"
         boolean is_active
+        boolean is_online
     }
 
     TASK {

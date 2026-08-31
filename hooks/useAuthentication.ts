@@ -2,6 +2,7 @@ import { RegisterLoginZodSchemaType } from "@/lib/schemas/zodSchemas";
 import { FirebaseError } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
+  getAdditionalUserInfo,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -9,9 +10,10 @@ import {
   User,
   UserCredential,
 } from "firebase/auth";
-import { useAuth } from "reactfire";
+import { useAuth, useUser } from "reactfire";
 import { useUserFirebase } from "./useUserFirebase";
-
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 //* hook de todo lo relacionado con autenticacion y seguridad
 
 //* interfaz especifa para las validaciones de registro
@@ -21,15 +23,17 @@ interface RegisterValidation {
   mensaje: string;
 }
 //* interfaz temporal para manejo de secciones
-interface exitSeccion {
+interface Result {
   valido: boolean;
   mensaje: string;
 }
 
 const useAuthentication = () => {
   const auth = useAuth();
-  const { registerUserDB } = useUserFirebase();
+  const { data: user } = useUser();
+  const { registerUserDB, closeSeccion } = useUserFirebase();
 
+  const router = useRouter();
   //* permitir la autorizacion x Email
   const registerWithEmail = async ({
     email,
@@ -77,13 +81,19 @@ const useAuthentication = () => {
       //* provedor del cual provienen los permisos y funcion de respuesta con devolucion
       const provider = new GoogleAuthProvider();
       const registerUser = await signInWithPopup(auth, provider);
-
       //* si llega hasta aca ya fue exitoso
-      //! guardar al mismo tiempo en la db
-      const registerDB = await registerUserDB(registerUser.user);
-      if (!registerDB.valido) {
-        console.error("Error: ", registerDB.mensaje);
+
+      //* preguntar si se creo una nueva instancia o si solo fue un inico de seccion
+      //* propiedad is new user
+      const details = getAdditionalUserInfo(registerUser);
+      if (details!.isNewUser) {
+        //! guardar al mismo tiempo en la db
+        const registerDB = await registerUserDB(registerUser.user);
+        if (!registerDB.valido) {
+          console.error("Error: ", registerDB.mensaje);
+        }
       }
+
       console.log(
         "Registro exitoso, usuario authenticado via Gmail: ",
         registerUser.user,
@@ -134,28 +144,39 @@ const useAuthentication = () => {
     }
   };
 
-  //! cerrar seccion actual
-  // const closeSeccion = async (): Promise<exitSeccion> => {
-  //   try {
-  //     await signOut(auth);
-  //     //* si llego aca es valido
-  //     return { valido: true, mensaje: "Session cerrada con exito " };
-  //   } catch (e) {
-  //     if (e instanceof FirebaseError) {
-  //       console.error("error: ", e.message);
-  //     }
-  //     return {
-  //       valido: false,
-  //       mensaje: "ERROR CRITICO, imposible cerrar seccion",
-  //     };
-  //   }
-  // };
+  const logout = async (): Promise<Result> => {
+    try {
+      //* ya verificado de que xista en el layout
+      const result = await closeSeccion(user!);
+
+      if (!result.valido) {
+        console.error(result.mensaje);
+        return result;
+      }
+      //* cerrar seccion luego renderizar
+      await signOut(auth);
+      router.replace("/");
+      toast.success("Seccion cerrada con exito");
+      return { valido: true, mensaje: "Sesión cerrada con éxito" };
+    } catch (e) {
+      if (e instanceof FirebaseError) {
+        console.error("Firebase Error: ", e.message);
+      } else if (e instanceof Error) {
+        console.error("Error inesperado: ", e.message);
+      }
+      toast.error("No es posible cerrar la sesión del usuario");
+      return {
+        valido: false,
+        mensaje: "No es posible cerrar la sesión del usuario",
+      };
+    }
+  };
 
   return {
     registerWithEmail,
     registerWithGoogle,
     loginWithEmail,
-    // closeSeccion,
+    logout,
   };
 };
 
