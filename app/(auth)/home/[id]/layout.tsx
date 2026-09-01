@@ -1,24 +1,34 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useSigninCheck } from "reactfire";
 import { toast } from "sonner";
 import FooterHome from "@/components/home/footer-home";
 import NavLinkHome from "@/components/home/navlink-home";
+import { useUserFirebase } from "@/hooks/useUserFirebase";
 
 //* layout para todas las paginas de home
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   //* funciones y estados
   const { status, data: signInCheckResult } = useSigninCheck();
+  const { changeIsOnline } = useUserFirebase();
   const router = useRouter();
+
+  const isOnlineUpdated = useRef(false);
 
   //* verficar estar logeado consulta asincronica del loading
   useEffect(() => {
-    if (status === "success" && !signInCheckResult.signedIn) {
-      toast.info("necesita estar autenticado para poder ingresar ");
-      router.replace("/");
+    if (status === "success") {
+      if (!signInCheckResult.signedIn) {
+        toast.info("necesita estar autenticado para poder ingresar ");
+        router.replace("/");
+      }
+      if (signInCheckResult.user && !isOnlineUpdated.current) {
+        isOnlineUpdated.current = true;
+        changeIsOnline(signInCheckResult.user, true);
+      }
     }
-  }, [status, signInCheckResult, router]);
+  }, [status, signInCheckResult, router, changeIsOnline]);
 
   return status === "success" && signInCheckResult.signedIn ? (
     <div className="min-h-screen min-w-screen">

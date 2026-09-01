@@ -30,8 +30,8 @@ export const useUserFirebase = () => {
       name: user.displayName || "",
       photoURL: user.photoURL || "",
       created: serverTimestamp() as unknown as Timestamp, // Le engañamos a TS de forma segura para el linter
-      is_active: false,
-      is_online: true,
+      is_active: true,
+      is_online: false,
     };
     try {
       await setDoc(userDocRef, newUser, { merge: true });
@@ -50,20 +50,32 @@ export const useUserFirebase = () => {
     }
   };
 
-  //todo is_active : false o toogle de alterar valor
-  const closeSeccion = async (user: User): Promise<Result> => {
+  //* activar o desativar el usario
+  const changeIsOnline = async (
+    user: User,
+    activated: boolean,
+  ): Promise<Result> => {
     const userDocRef = doc(db, "Users", user.uid);
+
     try {
-      await updateDoc(userDocRef, { is_online: false });
-      return { valido: true, mensaje: "Usuario offline" };
+      await updateDoc(userDocRef, { is_online: activated });
+
+      const mensaje = activated ? "Usuario Online" : "Usuario Offline";
+      return { valido: true, mensaje };
     } catch (e) {
-      console.error(Error, e);
-      return { valido: false, mensaje: "Usuario no pudo se cerrado" };
+      if (e instanceof FirebaseError) {
+        console.error("Firebase Error: ", e.message);
+      } else {
+        console.error("Error inesperado: ", e);
+      }
+
+      const mensaje = activated
+        ? "El usuario no pudo activarse"
+        : "El usuario no pudo cerrar sesión";
+
+      return { valido: false, mensaje };
     }
   };
 
-  return { registerUserDB, closeSeccion };
+  return { registerUserDB, changeIsOnline };
 };
-
-//todo crear interfaz de respuesta
-//todo encontrar xq sigue exigiendo el null y se solocuiona con string
