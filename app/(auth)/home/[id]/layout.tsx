@@ -32,7 +32,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
 
   return status === "success" && signInCheckResult.signedIn ? (
     <div className="min-h-screen min-w-screen">
-      <header className="w-full">
+      <header className="w-full fixed top-0 left-0 bg-green-600 h-1/13">
         <NavLinkHome></NavLinkHome>
       </header>
       <main>{children}</main>
