@@ -1,3 +1,4 @@
+"use client";
 import { Mail } from "lucide-react";
 
 //* footer para todas las paginas autenticadas
