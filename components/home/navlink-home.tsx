@@ -10,7 +10,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
-import { Home, LogOut, LucideIcon } from "lucide-react";
+import { Home, LogOut, LucideIcon, User } from "lucide-react";
 import { useUser } from "reactfire";
 import { usePathname } from "next/navigation";
 
@@ -31,6 +31,7 @@ const NavLinkHome = () => {
 
   const navigations: NavLink[] = [
     { name: "Home", to: `/home/${user!.uid}`, icon: Home },
+    { name: "Profile", to: `/home/${user!.uid}/profile`, icon: User },
   ];
 
   return (
