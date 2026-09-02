@@ -42,7 +42,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
     </div>
   ) : (
     <h1 className="md:text-2xl font-semibold text-green-900 text-center tracking-tight animate-pulse">
-      Cargando Usuario...
+      Cargando Usuario....
     </h1>
   );
 };
