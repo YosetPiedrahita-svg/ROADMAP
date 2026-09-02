@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 
+//* pagina publica de toda la aplicacion
 const PublicPage = () => {
   return (
     <main className="flex flex-col items-center justify-center min-h-screen w-screen bg-slate-50 p-4">

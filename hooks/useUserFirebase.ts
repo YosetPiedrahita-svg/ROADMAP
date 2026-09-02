@@ -15,7 +15,7 @@ interface Result {
   valido: boolean;
   mensaje: string;
 }
-//* afectan al usario como entidad de la DB
+//* afectan al usario en general de toda la app mas no regiones especificas
 export const useUserFirebase = () => {
   //* funciones y metodos
   const db = useFirestore();

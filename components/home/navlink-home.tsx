@@ -14,12 +14,14 @@ import { Home, LogOut, LucideIcon } from "lucide-react";
 import { useUser } from "reactfire";
 import { usePathname } from "next/navigation";
 
-interface NavBar {
+//* interface de todos las paginas
+interface NavLink {
   name: string;
   to: string;
   icon: LucideIcon;
 }
 
+//* navbar de todas las paginas
 const NavLinkHome = () => {
   const { logout } = useAuthentication();
   const { data: user } = useUser();
@@ -27,7 +29,7 @@ const NavLinkHome = () => {
   //* ruta actual
   const pathname = usePathname();
 
-  const navigations: NavBar[] = [
+  const navigations: NavLink[] = [
     { name: "Home", to: `/home/${user!.uid}`, icon: Home },
   ];
 
@@ -45,10 +47,8 @@ const NavLinkHome = () => {
                   <Link
                     href={item.to}
                     {...props}
-                    className={`flex items-center text-2xl font-sans transition-colors ${
-                      isActual
-                        ? "text-blue-600 font-bold underline decoration-4 underline-offset-4"
-                        : "text-gray-700 hover:text-black"
+                    className={`flex items-center font-medium hover:underline ${
+                      isActual ? "text-green-500" : "text-black"
                     }`}
                   >
                     <IconComponent className="h-6 w-8" />
@@ -64,7 +64,8 @@ const NavLinkHome = () => {
           <Button
             variant="destructive"
             onClick={() => logout()}
-            /* h-auto libera la restricción de altura del Button, py-3 px-5 iguala el padding del nav item */
+            /* h-auto libera la restricción de altura del Button, 
+            py-3 px-5 iguala el padding del nav item */
             className={
               "flex items-center  font-sans text-2xl text-white bg-green-900 h-auto cursor-pointer  hover:bg-red-600 "
             }

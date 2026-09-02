@@ -16,7 +16,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
 
   const isOnlineUpdated = useRef(false);
 
-  //* verficar estar logeado consulta asincronica del loading
+  //* verficar estar logeado ,en aso de se redirigdo is_active online
   useEffect(() => {
     if (status === "success") {
       if (!signInCheckResult.signedIn) {

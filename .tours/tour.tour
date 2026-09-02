@@ -4,7 +4,7 @@
   "steps": [
     {
       "title": "Introduction",
-      "description": "Roadmap : \r\nsistema para la gestion de tareas por parte de usarios authenticados \r\n\r\nFUNCIONES PRINCIPALES: \r\n#Usuarios: \r\nRegistro e Inicio de Sesión: Todo usuario debe registrarse obligatoriamente con su correo electrónico y contraseña (o un proveedor externo como Google). Nadie puede ver el sistema sin estar autenticado o sera renderizado a la pagina publica.(cumplida)"
+      "description": "Roadmap : \r\nsistema para la gestion de tareas por parte de usarios authenticados \r\n\r\nFUNCIONES PRINCIPALES: \r\n#Usuarios: \r\nRegistro e Inicio de Sesión: Todo usuario debe registrarse obligatoriamente con su correo electrónico y contraseña (o un proveedor externo como Google). Nadie puede ver el sistema sin estar autenticado o sera renderizado a la pagina publica, todos los datos se guardan como interfaz usuarios en firestore y cuando el usario es validado su estado Is_active se activa automaticamente.(cumplida)\r\n\r\npagina de perfil: "
     },
     {
       "file": "DIAGRAM.md",
@@ -18,7 +18,7 @@
     },
     {
       "file": "app/layout.tsx",
-      "description": "layout principal en e c-l cual funciona toda la aplicacion, al mismo nivel que una pagina de erroes generales y not-found",
+      "description": "layout principal en e cul cual funciona toda la aplicacion, al mismo nivel que una pagina de erroes generales y not-found",
       "line": 1
     },
     {
@@ -28,7 +28,7 @@
     },
     {
       "file": "app/(auth)/home/[id]/layout.tsx",
-      "description": "layout base para todas las paginas donde esl usario necesite estar autenticados, por el modelo de hooks de firebase todas estas seran componentes de cliente por completo",
+      "description": "layout base para todas las paginas donde esl usario necesite estar autenticados, por el modelo de hooks de firebase todas estas seran componentes de cliente y activa automaticamente el usario is_Active al ingresar",
       "line": 1
     }
   ]
