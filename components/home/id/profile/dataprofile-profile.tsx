@@ -10,7 +10,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useProfileFirestore } from "@/hooks/useProfileFirestore";
-import { Mail, RefreshCw, UserCheck } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Mail, RefreshCw, User2, UserCheck } from "lucide-react";
 
 //* toda la seccion para poder hacer idparam
 const DataProfile = () => {
@@ -49,14 +50,32 @@ const DataProfile = () => {
             <div className="flex gap-2">
               <Badge
                 variant="outline"
-                className="gap-1 border-green-500 text-green-600 bg-green-50 dark:bg-green-950/30"
+                className={cn(
+                  "gap-1",
+                  profile!.is_online
+                    ? "border-green-500 text-green-600 bg-green-50 dark:bg-green-950/30"
+                    : "border-red-500 text-red-600 bg-red-50 dark:bg-red-950/30",
+                )}
               >
-                <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+                <span
+                  className={cn(
+                    "h-2 w-2 rounded-full animate-pulse",
+                    profile!.is_online ? "bg-green-500" : "bg-red-500",
+                  )}
+                />
                 {profile!.is_online ? "Online" : "Offline"}
               </Badge>
-              <Badge variant="secondary" className="gap-1">
-                <UserCheck className="h-3 w-3" />
-                {profile!.is_active ? "Activo" : "No activo"}
+
+              {/* Badge de Activo / No activo */}
+              <Badge
+                variant="secondary"
+                className={cn(
+                  "gap-1",
+                  profile!.is_active ? "" : "text-red-500",
+                )}
+              >
+                <User2 className="h-3 w-3" />
+                {profile?.is_active ? "Activo" : "No activo"}
               </Badge>
             </div>
           </div>
@@ -73,7 +92,3 @@ const DataProfile = () => {
   );
 };
 export default DataProfile;
-
-//* interfaz en caso de no encontrar al usario
-
-//todo mejorar visual con estado y online falso
