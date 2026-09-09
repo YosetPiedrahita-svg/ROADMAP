@@ -303,4 +303,4 @@ const useAuthentication = () => {
 
 export default useAuthentication;
 
-//! se crearon los metodos upddate name y photourl
+//todo implementar metodos de actualizar photoURL

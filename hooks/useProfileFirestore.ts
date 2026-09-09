@@ -19,7 +19,7 @@ export const useProfileFirestore = () => {
   const { data: user } = useUser();
   const db = useFirestore();
 
-  //* instania al usario logeafo
+  //* instania al usario logeado
   const profileDocRef = doc(db, "Users", user!.uid);
 
   const { data: profile } = useFirestoreDocData(profileDocRef, {
@@ -74,3 +74,5 @@ export const useProfileFirestore = () => {
     updateProfile,
   };
 };
+
+//todo funcion para actualizar la imagen dentro de update

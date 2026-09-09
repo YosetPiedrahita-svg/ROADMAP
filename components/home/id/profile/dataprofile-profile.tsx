@@ -12,12 +12,15 @@ import {
 import { useProfileFirestore } from "@/hooks/useProfileFirestore";
 import { cn } from "@/lib/utils";
 import { Mail, RefreshCw, User2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 //* toda la seccion para poder hacer idparam
 const DataProfile = () => {
   //* importar usuario encontrado
   const { profileData } = useProfileFirestore();
   const { profile, valido } = profileData;
+  const router = useRouter();
+
   return (
     <div>
       {valido ? (
@@ -25,11 +28,10 @@ const DataProfile = () => {
           <CardHeader className="flex flex-col items-center gap-4 text-center pb-2">
             {/* Avatar de usuario centrado */}
             <Avatar className="h-28 w-28 border-4 border-background shadow-md">
-              <AvatarImage
-                src={profile!.photoURL}
-                alt="Yoset Alfonso Piedrahita Ramirez"
-              />
-              <AvatarFallback>YA</AvatarFallback>
+              <AvatarImage src={profile!.photoURL} alt={profile!.name} />
+              <AvatarFallback className="bg-cyan-600 text-white">
+                {profile!.name.charAt(0).toUpperCase()}
+              </AvatarFallback>
             </Avatar>
 
             <div className="space-y-1">
@@ -91,14 +93,40 @@ const DataProfile = () => {
           </CardFooter>
         </Card>
       ) : (
-        <p>
-          MENSAJE DE RECARGAR Y UN BOTON PARA RECARGAR LA PAGINA EN CASO DE QUE
-          NO LO ENCUENTRE****
-        </p>
+        <Card className="w-2xl shadow-lg border-zinc-200 dark:border-zinc-800">
+          <CardHeader className="flex flex-col items-center gap-3 text-center pb-2">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-50 dark:bg-red-950/30">
+              <RefreshCw className="h-7 w-7 text-red-500" />
+            </div>
+            <div className="space-y-1">
+              <CardTitle className="text-2xl font-bold tracking-tight">
+                Error al cargar el perfil
+              </CardTitle>
+              <p className="text-sm text-muted-foreground">
+                No ha sido posible cargar la información de tu perfil.
+              </p>
+            </div>
+          </CardHeader>
+          <CardContent className="pt-2">
+            <div className="rounded-lg border bg-muted/40 p-3 text-center shadow-sm">
+              <p className="text-sm text-muted-foreground">
+                Ha ocurrido un error inesperado. Por favor, vuelve a intentarlo
+                o recarga la página.
+              </p>
+            </div>
+          </CardContent>
+          <CardFooter className="pt-2">
+            <Button
+              type="button"
+              className="w-full gap-2"
+              onClick={() => router.refresh()}
+            >
+              <RefreshCw className="h-4 w-4" /> Recargar página
+            </Button>
+          </CardFooter>
+        </Card>
       )}
     </div>
   );
 };
 export default DataProfile;
-
-//TODO MENSAJE Y BOTON DE RECARGAR

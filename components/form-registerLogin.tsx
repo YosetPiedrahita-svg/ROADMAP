@@ -151,5 +151,3 @@ const FormRegisterLogin = ({ page }: Props) => {
   ) : null;
 };
 export default FormRegisterLogin;
-
-//? remplazo de contenido a la rama master

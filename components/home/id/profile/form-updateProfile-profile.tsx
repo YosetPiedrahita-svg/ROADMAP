@@ -151,3 +151,6 @@ const FormUpdateProfile = () => {
 };
 
 export default FormUpdateProfile;
+
+//todo verificar que el cambio sea valido
+//todo funcion para actualizar tambien la imagen
