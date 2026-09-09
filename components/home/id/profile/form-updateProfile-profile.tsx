@@ -15,6 +15,7 @@ import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { useProfileFirestore } from "@/hooks/useProfileFirestore";
 import { Eraser, SaveCheck } from "lucide-react";
+import { toast } from "sonner";
 
 const updateProfileSchema = userFirebase
   .pick({
@@ -27,7 +28,8 @@ type UpdateProfileType = z.infer<typeof updateProfileSchema>;
 
 const FormUpdateProfile = () => {
   //*importar instancia actual del perfil
-  const { profile } = useProfileFirestore();
+  const { profileData, updateProfile } = useProfileFirestore();
+  const { profile } = profileData;
 
   const form = useForm<UpdateProfileType>({
     resolver: zodResolver(updateProfileSchema),
@@ -38,8 +40,14 @@ const FormUpdateProfile = () => {
     },
   });
 
-  const FormSubmit = (data: UpdateProfileType) => {
+  const FormSubmit = async (data: UpdateProfileType) => {
     console.log("Datos a actualizar:", data);
+    const resp = await updateProfile(data.name);
+    if (resp.valido) {
+      toast.success(resp.mensaje);
+    } else {
+      toast.info(resp.mensaje);
+    }
   };
 
   //* boton de reseteo

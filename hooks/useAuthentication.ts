@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
   User,
 } from "firebase/auth";
 import { useAuth, useUser } from "reactfire";
@@ -186,12 +187,120 @@ const useAuthentication = () => {
     }
   };
 
+  //* actualizar nombre de auth
+  const updateName = async (name: string): Promise<Result> => {
+    try {
+      const user = auth.currentUser;
+
+      if (!user) {
+        console.error(
+          "Error: no es posible conectar con un usuario autenticado",
+        );
+
+        return {
+          valido: false,
+          mensaje: "No existe actualmente un usuario autenticado",
+        };
+      }
+
+      await updateProfile(user, {
+        displayName: name,
+      });
+
+      return {
+        valido: true,
+        mensaje: "Nombre de usuario actualizado correctamente",
+      };
+    } catch (e) {
+      if (e instanceof FirebaseError) {
+        console.error("Firebase Error:", e.message);
+
+        return {
+          valido: false,
+          mensaje: `Error de Firebase: ${e.message}`,
+        };
+      }
+
+      if (e instanceof Error) {
+        console.error("Error inesperado:", e.message);
+
+        return {
+          valido: false,
+          mensaje: `Error inesperado: ${e.message}`,
+        };
+      }
+
+      console.error("Error desconocido:", e);
+
+      return {
+        valido: false,
+        mensaje: "Ocurrió un error desconocido",
+      };
+    }
+  };
+
+  //* actualizar photo url auth
+  const updatePhotoUrl = async (photoURL: string): Promise<Result> => {
+    try {
+      const user = auth.currentUser;
+
+      if (!user) {
+        console.error(
+          "Error: no es posible conectar con un usuario autenticado",
+        );
+
+        return {
+          valido: false,
+          mensaje: "No existe actualmente un usuario autenticado",
+        };
+      }
+
+      await updateProfile(user, {
+        photoURL,
+      });
+
+      return {
+        valido: true,
+        mensaje: "Foto de perfil actualizada correctamente",
+      };
+    } catch (e) {
+      if (e instanceof FirebaseError) {
+        console.error("Firebase Error:", e.message);
+
+        return {
+          valido: false,
+          mensaje: `Error de Firebase: ${e.message}`,
+        };
+      }
+
+      if (e instanceof Error) {
+        console.error("Error inesperado:", e.message);
+
+        return {
+          valido: false,
+          mensaje: `Error inesperado: ${e.message}`,
+        };
+      }
+
+      console.error("Error desconocido:", e);
+
+      return {
+        valido: false,
+        mensaje: "Ocurrió un error desconocido",
+      };
+    }
+  };
+
   return {
     registerWithEmail,
     registerWithGoogle,
     loginWithEmail,
     logout,
+    updateName,
+    // updatePhotoUrl,
   };
 };
 
 export default useAuthentication;
+
+//! se crearon los metodos upddate name y photourl
