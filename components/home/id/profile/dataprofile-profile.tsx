@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card";
 import { useProfileFirestore } from "@/hooks/useProfileFirestore";
 import { cn } from "@/lib/utils";
-import { Mail, RefreshCw, User2, UserCheck } from "lucide-react";
+import { Mail, RefreshCw, User2 } from "lucide-react";
 
 //* toda la seccion para poder hacer idparam
 const DataProfile = () => {

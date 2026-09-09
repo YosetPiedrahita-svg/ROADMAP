@@ -1,4 +1,4 @@
-import { Loader, Loader2 } from "lucide-react"; // Si usas lucide-react (común con Shadcn)
+import { Loader } from "lucide-react";
 
 const ProfileLoading = () => {
   return (

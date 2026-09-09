@@ -30,4 +30,9 @@ export const useProfileFirestore = (): ProfileValidation => {
     valido: true,
     mensaje: "Usuario encontrado con éxito",
   };
+
+  //* actualizar perfil
+  const updateProfile = () => {};
 };
+
+//todo se puede actualizar solo el nombre la url o los 2
